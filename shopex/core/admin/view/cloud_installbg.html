@@ -1,0 +1,43 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>Eshop</title>
+  <link href="images/login.css" rel="stylesheet" type="text/css" />
+ 
+</head>
+<body>
+<div class="cloud_installbg">
+  <!--云起激活系统面板-->
+  <div class="panel-hint panel-icloud" id="panelCloud">
+    <div class="panel-cross"><span onclick="btnCancel(this)">跳过激活</span></div>
+    <div class="panel-title">
+      <span class="tit">您需要激活系统</span>
+      <p>需要激活您的系统，请先登录或免费注册云起账号</p>
+    </div>
+    <div class="panel-left">
+      <span>没有云起账号吗？</span>
+      <p>点击下列按钮一步完成注册激活！</p>
+      <a href="" class="btn btn-yellow">免费注册云起账号</a>
+    </div>
+    <div class="panel-right">
+      <h5 class="logo">云起</h5>
+      <p>我有云起账号</p>
+      <iframe src="../core/admin/view/login-frame.html" frameborder="0"></iframe>
+      <div class="cloud-passw">
+        <a target="_blank" href="#">忘记密码？</a>
+      </div>
+    </div>
+  </div>
+  <!--云起激活系统面板-->
+</div>
+<script>
+
+  /*关闭按钮*/
+  function btnCancel(item){
+    var par  = item.offsetParent;
+    var mask  = document.getElementById('Mask')||null;
+    par.style.display = 'none';
+    if(mask){mask.style.display = 'none';}
+  }
+</script>
+</body>
+</html>

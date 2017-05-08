@@ -1,0 +1,42 @@
+<form action="index.php?ctl=member/messenger&act=smsSign" method="POST" id="SmsSignForm">
+    <{foreach from=$options item=item key=key}>
+         <{input type='hidden' name=$key value=$item}>
+    <{/foreach}>
+    
+    <table>
+        <th><{t}>亲爱的客户，根据国家规定，目前运营商开始对短信签名作出严格的要求，为了不影响您系统短信的发送，请先设置签名。<br><br><b>签名注意事项：</b><{/t}></th>        
+        <tr>
+          <td style="color:#FF0000;padding:5px;"><{t}>签名内容为3到8位<br/>签名中不能出现URL<br/>签名中不能出现“test”或者“测试”<br/>签名中不能出现成对的"[ ]”或者成对的"{ }<{/t}></td>
+        </tr>
+        <tr style="height:50px;">                      
+            <td>
+              <{t}>请输入短信签名:<{/t}>
+              <input type="text" name="smsSign" value="<{$smsSign}>" size=30>
+              <{button label="确定" type="submit"}> 
+            </td>            
+        </tr>
+    </table>
+</form>
+<script>
+  $('SmsSignForm').addEvent('submit',function(e){
+    e.stop();
+    var action = this.action;
+    new Ajax(action,{method:'post',data:$('SmsSignForm'),onRequest:function(){$('errorMsg').setHTML('Loading....');},onComplete:function(re){
+        var r = JSON.parse(re);
+        if(r.status==true){
+          $('errorMsg').setHTML();
+          return MessageBox.success(r.msg)
+        }else{
+          $('errorMsg').setHTML();
+          return MessageBox.error(r.msg)
+        }
+    }}).request();   
+  });    
+</script>
+<div id="errorMsg"></div>
+
+<style type="text/css">
+#errorMsg{
+    padding:10px;
+}
+</style>

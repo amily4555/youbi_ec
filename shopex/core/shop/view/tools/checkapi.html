@@ -1,0 +1,22 @@
+
+<table>
+  <caption>接口通讯信息</caption>
+  <{foreach from=$info item=item key=key}>
+      <tr>
+        <td width="20%"><{$key}></td>
+        <td width="25%">耗时(<{$item.time}>)秒</td>
+        <td width="40%"><{$item.value}></td>
+        <td>
+          <{if $item.result}>
+            <{img src="install/svinfo.php?img=yes.gif"}>
+          <{else}>
+            <{img src="install/svinfo.php?img=no.gif"}>
+          <{/if}>
+        </td>
+      </tr>
+  <{/foreach}>
+</table>
+<br/>
+<{if $log}>
+<a href="<{$log}>">查看请求日志</a>
+<{/if}>

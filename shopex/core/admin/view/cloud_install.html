@@ -1,0 +1,76 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <title><{t}>ShopEx网上商店系统<{/t}></title>
+  <link href="images/login.css" rel="stylesheet" type="text/css" />
+ 
+</head>
+<body>
+  <!--云起激活系统面板-->
+  <div class="panel-hint panel-icloud" id="panelCloud">
+    <!-- <div class="panel-cross"><span onclick="btnCancel(this)">跳过激活</span></div> -->
+    <div class="panel-title">
+      <span class="tit">您需要激活系统</span>
+      <p>需要激活您的系统，请先登录或免费注册云起账号</p>
+    </div>
+    <div class="panel-left">
+      <span>没有云起账号吗？</span>
+      <p>点击下列按钮一步完成注册激活！</p>
+      <a href="https://account.shopex.cn/reg?refer=yunqi_485" target="_blank" class="btn btn-yellow">免费注册云起账号</a>
+    </div>
+    <{if $code}>
+    <div class="panel-right" id="fast_login" style="display: block">
+      <h5 class="logo">云起</h5>
+      <p style="cursor: pointer" onclick="changelogin()">其他账号登录</p>
+      <div style="position: relative;width:300px;height: 200px;border: 3px solid #f2efea;border-radius: 5px">
+        </br>
+        <div style="height:50px;line-height:50px;overflow:hidden;border:1px solid #fff5fd;text-align:center">
+          系统检测到您已登录账号
+        </div>
+        <div style="height:50px;line-height:50px;overflow:hidden;border:1px solid #fff5fd;text-align:center">
+          <font color="black" size="3"><{$passport_uid}></font>
+        </div>
+        <div style="border: 2px solid #f79327;position: absolute;top: 130px;cursor: pointer;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;left: 100px;width: 100px;height: 30px;line-height: 30px;background-color: #fff7f2;text-align: center">
+          <a href="<{$fast_login_url}>"><font color="#f79327" size="3">快速登录</font></a>
+        </div>
+      </div>
+      <!--<div class="cloud-passw">-->
+      <!--<a target="_blank" href="https://account.shopex.cn/forget?">忘记密码？</a>-->
+      <!--</div>-->
+    </div>
+    <{else}>
+    <div class="panel-right">
+      <h5 class="logo">云起</h5>
+      <p>我有云起账号</p>
+      <!-- <iframe src="../core/admin/view/login-frame.html" frameborder="0"></iframe> -->
+      <iframe src="<{$oauth_url}>" width="100%" frameborder="0" height="230px" class="Login-frame" allowtransparency>
+      </iframe>
+      <div class="cloud-passw">
+        <a target="_blank" href="https://account.shopex.cn/forget?">忘记密码？</a>
+      </div>
+    </div>
+    <{/if}>
+  </div>
+  <!--云起激活系统面板-->
+
+  <!--遮罩-->
+  <div class="mask-black" id="Mask"></div>
+  <!--遮罩-->
+
+<script type="text/javascript">
+
+  /*关闭按钮*/
+  function btnCancel(item){
+    var par  = item.offsetParent;
+    var mask  = document.getElementById('Mask')||null;
+    par.style.display = 'none';
+    if(mask){mask.style.display = 'none';}
+    // parent.location.reload();
+    window.location.href = 'index.php?ctl=passport&act=login';
+  }
+  function changelogin(){
+    window.location.href = 'index.php?ctl=passport&act=changelogin&code=1';
+  }
+</script>
+
+</body>
+</html>

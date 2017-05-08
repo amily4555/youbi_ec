@@ -1,0 +1,126 @@
+<{require file="block/header.html"}>
+<div class="header_body clearfix">
+  <div class="side side_list lt">
+    <{widgets id="side_list"}>
+  </div>
+  <div class="banner lt">
+    <{widgets id="banner"}>
+  </div>
+</div>
+  <div class="main">
+    <div class="day_groups">
+      <div class="dg_left lt">
+        <{widgets id="dg_left"}>
+      </div>
+      <div class="dg_right lt">
+        <div class="dg_pic">
+          <{widgets id="pic_01"}>
+        </div>
+        <div>
+          <{widgets id="pic_02"}>
+        </div>
+        <div>
+          <{widgets id="pic_03"}>
+        </div>
+        <div>
+          <{widgets id="pic_04"}>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="floor floor01">
+      <div class="title">
+        <h1 class="lt">1F 家用电器</h1>
+        <div class="more gt">
+          <{widgets id="more1"}>
+        </div>
+      </div>
+      <div class="floor_bd clearfix">
+        <div class="side floor01_lt">
+          <ul><li><{widgets id="f1_side"}></li></ul>
+        </div>
+
+        <div class="floor_list">
+          <{widgets id="f1_list"}>
+        </div>
+      </div>
+    </div>
+    <div class="floor floor02">
+      <div class="title">
+        <h1 class="lt">2F 数码时尚</h1>
+        <div class="more gt">
+          <{widgets id="more2"}>
+        </div>
+      </div>
+      <div class="floor_bd clearfix">
+        <div class="side floor02_lt">
+          <ul>
+            <li><{widgets id="f2_side1"}></a></li>
+            <li><{widgets id="f2_side2"}></li>
+          </ul>
+        </div>
+        <div class="floor_list">
+          <{widgets id="f2_list"}>
+        </div>
+      </div>
+    </div>
+    <div class="floor floor03">
+      <div class="title">
+        <h1 class="lt">3F 家居生活</h1>
+        <div class="more gt">
+          <{widgets id="more3"}>
+        </div>
+      </div>
+      <div class="floor_bd clearfix">
+        <div class="side floor03_lt">
+          <ul>
+            <li><{widgets id="f3_side"}></li>
+          </ul>
+        </div>
+        <div class="floor_list">
+          <{widgets id="f3_list"}>
+        </div>
+      </div>
+    </div>
+    <div class="floor recommend">
+      <div class="title">
+        <h1 class="lt">热门商品推荐</h1>
+        <div class="more gt">
+          <{widgets id="more4"}>
+        </div>
+      </div>
+      <div class="recommend_bd clearfix">
+        <{widgets id="recommend_bd"}>
+      </div>
+    </div>
+  </div>
+<{require file="block/footer.html"}>
+<script>
+  jq(function(){
+    var ul=jq(".list_details ul");
+    var li=jq(".list_details ul li");
+    var length=jq(".list_details ul li").length;
+    var liWidth=li.width();
+    var listWith=jq(".list_details").width();
+    var LEFT=0;
+    var width=liWidth*length;
+        ul.width(width);
+    jq(".list_gt").click(function(){
+      if(LEFT>-width+listWith){
+        LEFT-=liWidth;
+        ul.animate({
+          left: LEFT
+        })
+      }
+    });
+    jq(".list_lt").click(function(){
+      if(LEFT<0) {
+        LEFT+=liWidth;
+        ul.animate({
+          left: LEFT
+        })
+      }
+    })
+  })
+</script>

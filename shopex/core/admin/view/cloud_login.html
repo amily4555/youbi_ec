@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US" dir="ltr" style="height:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title><{t}>ShopEx网上商店系统<{/t}></title>
+<link rel="shortcut icon" href="../favicon.gif" type="image/gif" />
+<link href="images/png.css" rel="stylesheet" type="text/css"  />
+<link href="images/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="height:100%;">
+  <div class="yq_login-bg">
+    <div class="shopex-logo">
+        <img src="images/shopex-logo.png" alt="shopex485" class="shopex-logo" />
+    </div>
+    <div class="center-wrap">
+      <div class="online-shop yq-logo">
+        <img src="images/yq_logo.png" alt="shopex网上商店系统" />
+        <p>帮助中小企业快速开启电子商务</p>
+      </div>
+
+      <{if $message}>
+        <div class="message cloud-message">
+          <{$message}>&nbsp;
+        </div>
+      <{/if}>
+      <div class="body cloud-body">
+        <div class="cloud-form">
+          <div class="cloudform-iframe">
+            <iframe src="<{$oauth_url}>" width="100%" frameborder="0" height="225px" class="Login-frame" allowtransparency>
+            </iframe>
+          </div>
+          <div class="cloud-passw">
+            <a target="_blank" href="https://account.shopex.cn/forget?" style="float:left;">忘记密码？</a>
+            <a href="index.php?ctl=passport&act=login" style="float:right;">返回本地登录>></a>
+          </div>
+        </div>
+        <div class="no-account">
+          <p>没有账号吗？</p>
+          <a class="register" href="#">免费注册</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot"></div>
+    <p class="copyright">&copy;&nbsp;&nbsp;2013-2016&nbsp;ShopEx,Inc.All&nbsp;rights&nbsp;reserverd.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+
+<table>
+<caption>接口通讯信息</caption>
+  <{foreach from=$info item=item key=key}>
+      <tr>
+        <td width="20%"><{$key}></td>
+        <td width="20%">耗时(<{$item.time}>)秒</td>
+        <td width="40%"><{$item.value}></td>
+        <td>
+          <{if $item.result}>
+            <{img src="images/bundle/enabled.gif"}>
+          <{else}>
+            <{img src="images/bundle/disabled.gif"}>
+          <{/if}>
+        </td>
+      </tr>
+  <{/foreach}>
+</table>

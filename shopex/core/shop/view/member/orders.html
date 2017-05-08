@@ -1,0 +1,233 @@
+<style type="text/css">
+  .blueth th {
+    background: grey;
+    color: #fff;
+    text-align: center;
+    border-right: 1px solid #fff;
+    padding: 2px 5px;
+  }
+  .memberlist td {
+    text-align:center;
+  }
+  tr {
+    background:#fff!important;
+  }
+  .logistics,.memberlist a.look-at {
+    display: block;
+    color: #0a8ef2;
+    height: 22px;
+    width: 50px;
+    margin: 0 auto;
+    padding-bottom: 0px;
+    border-bottom: 1px solid #0a8ef2;
+    cursor:pointer;
+  }
+  .logistics {
+    position:relative;
+  }
+  .receiving {
+    display: block;
+    width: 56px;
+    height: 21px;
+    line-height:21px;
+    background:url(statics/receiving-btn.png) repeat-x;
+    margin: 0 auto;
+    color: #fff;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .memberlist a.look-at {
+    color: #F90;
+    border-bottom: 1px solid #F90;
+  }
+  .layer-box {
+    display: none;
+    position:absolute;
+    top:6px;
+    left:-110px;
+    width: 277px;
+    /*height: 182px;*/
+    z-index: 200;
+  }
+  .layer-box.show {
+    display: block;
+  }
+  .layer-box::before {
+    content:'';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #0a8ef2;
+  }
+  .layer {
+    width:255px;
+    padding:10px;
+    margin-top:4px;
+    border:1px solid #0a8ef2;
+    border-radius:5px;
+    background:#fff;
+  }
+  .layer>h3 {
+    border-bottom:1px solid #ddd;
+    font:12px/30px "microsoft yahei";
+    color:#757575;
+    text-indent: 10px;
+    margin: 0;
+  }
+  .express-msg {
+    margin:0 10px 0 25px;
+  }
+  .express-msg li {
+    text-indent: -4px;
+    line-height: 20px;
+    list-style-type:disc;
+    color: #757575;
+  }
+  .express-msg li.li-blue {
+    color:#0a8ef2;
+  }
+  .see-all {
+    display: inline-block;
+    color: #0a8ef2;
+    text-decoration:underline;
+    cursor:pointer;
+  }
+</style>
+<!-- right-->
+  <div class="MemberMain">
+  <div style="margin-right:175px;">
+
+ <div class="title"><{t}>我的订单<{/t}></div>
+ 
+ <table class="memberlist blueth" width="100%" border="0" cellspacing="0" cellpadding="0">
+   <tr>
+     <th>订单号</th>
+     <th>下单日期</th>
+     <th>总金额</th>
+     <th>订单状态</th>
+     <th>支付方式</th>
+     <th>操作</th>
+   </tr>
+<tbody>
+<{foreach from=$orders item="order" name=orders}>
+<tr>
+  <td>
+      <a href="<{link ctl=member act=orderdetail arg0=$order.order_id}>"><{$order.order_id}></a>
+  </td>
+  <td><{$order.createtime|cdate:FDATE_STIME}></td>
+  <td><{$order.final_amount|cur:$order.currency:false:true}></td>
+  <td>
+    <span class="point">
+    <{if $order.status == 'finish'}>已完成
+    <{elseif $order.status == 'dead'}>已作废
+    <{else}>
+    <{if $order.pay_status==1}>已付款
+      [<{if $order.ship_status==1}>
+      已发货
+      <{elseif $order.ship_status==2}>
+      部分发货
+      <{elseif $order.ship_status==3}>
+      部分退货
+      <{elseif $order.ship_status==4}>
+      已退货
+      <{else}>
+      正在备货...
+      <{/if}>]
+    <{elseif $order.pay_status==2}>
+      已付款至担保方
+    <{elseif $order.pay_status==3}>
+      <a href="<{link ctl=member act=orderpay arg0=$order.order_id}>" ><{t}>等待补款<{/t}></a>
+      <{if $order.ship_status==1}>
+      [已发货]
+      <{elseif $order.ship_status==2}>
+      [部分发货]
+      <{elseif $order.ship_status==3}>
+      [部分退货]
+      <{elseif $order.ship_status==4}>
+      [已退货]
+      <{/if}>
+    <{elseif $order.pay_status==4}>
+      部分退款
+      [<{if $order.ship_status==1}>
+      已发货
+      <{elseif $order.ship_status==2}>
+      部分发货
+      <{elseif $order.ship_status==4}>
+      已退货
+      <{elseif $order.ship_status==0}>
+      未发货
+      <{/if}>]
+    <{elseif $order.pay_status==5}>
+      已退款
+      [<{if $order.ship_status==1}>
+      已发货
+      <{elseif $order.ship_status==2}>
+      部分发货
+      <{elseif $order.ship_status==4}>
+      已退货
+      <{elseif $order.ship_status==0}>
+      未发货
+      <{/if}>]
+    <{else}>
+      <a href="<{link ctl=member act=orderpay arg0=$order.order_id}>" ><{t}>等待付款<{/t}></a>
+      <{if $order.ship_status==1}>
+      [已发货]
+      <{elseif $order.ship_status==2}>
+      [部分发货]
+      <{elseif $order.ship_status==3}>
+      [部分退货]
+      <{elseif $order.ship_status==4}>
+      [已退货]
+      <{/if}>
+    <{/if}>
+    <{/if}>
+    </span>
+    <{if $order.ship_status==1 && $is_logistics_track }>
+    <div class="logistics" onmouseover="userinfo(this)" onmouseout="info(this)" order_id="<{$order.order_id}>">
+      查看物流
+      <div class="layer-box">
+        <div class="layer">
+          <h3 style="text-align:left;"><{$order.shipping}>：<{$order.logi_no}></h3>
+          <ul class="express-msg" style="text-align:left;">
+            <div id="delivery_detail_<{$order.order_id}>">
+              正在查询中...
+            </div>
+            
+          </ul>
+        </div>   
+      </div>
+    </div>
+    <{/if}>
+  </td>
+  <td><{$order.payment_name}></td>
+  <td >
+    <{if $order.ship_status==1 &&  $order.pay_status==1 && $order.status == 'active'}>
+    <a href="<{link ctl=member act=order_finish arg0=$order.order_id}>" class="receiving">确认收货</a>
+    <{/if}>
+    <a class="look-at" href="<{link ctl=member act=rebuy arg0=$order.order_id}>">再次购买</a>
+  </td>
+</tr>
+<{/foreach}>
+</tbody>
+ </table>
+ <{pager data=$pager}>
+  </div>
+  </div>
+  
+  <!-- right-->
+<script type="text/javascript">
+  function userinfo(e){
+    var order_id = $(e).get('order_id');
+    url = '?member-'+order_id+'-ajax_delivery_info.html';
+    new Ajax(url,{method:'post',update:'delivery_detail_'+order_id,data:''}).request();
+    var layer_box = e.getChildren()[0];
+    layer_box.addClass('show');
+  }
+  function info(e){
+    var layer_box = e.getChildren()[0];
+    layer_box.removeClass('show');
+  }
+  
+  
+</script>

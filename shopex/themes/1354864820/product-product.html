@@ -1,0 +1,17 @@
+<{require file="block/header.html"}>
+<div class="pageProduct">
+<div id="MainWrap">
+		<{widgets id="main_b"}>
+		<{main}>
+		<div class="recommend">
+			<h1>推荐商品</h1>
+			<{widgets id="main_c"}>
+		</div>
+</div>
+</div>
+<{require file="block/footer.html"}>
+<script>
+	jq(function(){
+		jq(".recommend").insertBefore(".goods-detail-tab")
+	})
+</script>

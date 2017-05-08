@@ -1,0 +1,254 @@
+<style>
+    /*panel*/
+    .title-text {
+        width: 100%;
+        height:60px;
+        line-height: 60px;
+        border-bottom: 1px solid #d9d9d9;
+        font: bold 18px/60px "Microsoft yahei";
+        color: #f77900;  
+    }
+    .package-status {
+        padding: 18px 0 0;
+    }
+    .package-status .status-box {
+        overflow: hidden;
+        position: relative;
+    }
+    .package-status .status-box:before {
+        content: " ";
+        background-color: #f3f3f3;
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: 20px;
+        width: 10px;
+        height: 4px;
+    }
+    .package-status .status-list {
+        margin: -9px 0 0 12px;
+        padding: 0 0 0 10px;
+        list-style: none;
+        font-size: 12px;
+        margin-top: 0;
+    }
+    .package-status .status-list li {
+        border-left: 1px solid #d9d9d9;
+        height: auto;
+        min-height: 30px;
+        margin-bottom: -2px;
+    }
+    .package-status .status-list .latest {
+        border: none;
+    }
+    .package-status .status-list li:before {
+        content: '';
+        border: 3px solid #f3f3f3;
+        background-color: #d9d9d9;
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        margin-left: -6px;
+        margin-right: 10px;
+    }
+    .package-status .status-list .latest:before {
+        background-color: #fe4300;
+        border-color: #f8e9e4;
+    }
+    .hidden {
+        visibility: hidden;
+    }
+    .package-status .status-list .date, .package-status .status-list .time, .package-status .status-list .week {
+        display: inline-block;
+    }
+    .package-status .status-list .date {
+        font-weight: 700;
+        margin-right: 8px;
+        font-family: Arial;
+        width:78px;
+    }
+    .package-status .status-list .week {
+        width: 32px;
+    }
+    .package-status .status-list .time {
+        margin-right: 28px;
+        margin-left: 5px;
+        width: 48px;
+    }
+    .package-status .status-list .text {
+        display: inline-block;
+        vertical-align: text-top;
+        line-height: 1.3em;
+        width: 635px;
+    }
+    
+    /*bar*/
+    .bar {
+        width: 100%;
+        height:60px;
+        line-height: 60px;
+        border-bottom: 1px solid #ddd;
+        font: bold 18px/60px "Microsoft yahei";
+        color: #f77900;
+    }
+    .col {
+        display: -webkit-box;
+        -webkit-box-align: center;
+        background: #f7f7f7;
+        border-bottom: 1px solid #dadada;
+        overflow: hidden;
+    }
+
+    .col a {
+        text-decoration: none;
+        color: #06c;
+    }
+
+    .first .col2 .point {
+        background-color: #66cc00;
+    }
+
+    .last {
+        color: #ff7f02;
+        background: #fff;
+    }
+
+    .last .col2 .point {
+        background-color: #ff7f02;
+    }
+
+    .col1 {
+        display: block;
+        width: 5.625em;
+        padding:0 1em;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .col2 {
+        display: block;
+        width: 1.25em;
+        position: relative;
+    }
+
+    .col1 dd {
+        margin-top: .3125em;
+    }
+
+    .col2 .line1, .col2 .line2 {
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        width: .4375em;
+        height: 10em;
+        border-right: 2px solid #bebebe;
+    }
+
+    .col2 .line1 {
+        top: -10em;
+    }
+
+    .col2 .line2 {
+        top: 0;
+    }
+
+    .col2 .point {
+        position: absolute;
+        z-index: 2;
+        top: -.5em;
+        left: 0;
+        width: 1em;
+        height: 1em;
+        border-radius: .5em;
+        background-color: #bebebe;
+    }
+
+    .col3 {
+        -webkit-box-flex: 1;
+        padding: 0 1rem;
+        font-size: .875em;
+    }
+    
+</style>
+    <div class="panel-package">
+        <div class="package-title"> 
+            <h3 class="title-text"><{$comname}></h3>
+        </div>
+        <div class="package-status">
+            <div class="status-box" id="status_list">
+                <ul id="J_listtext2" class="status-list">
+                    <{foreach from=$message.data key=key item=item name=logi}>
+                    <li <{if $smarty.foreach.logi.last}> class="latest" <{/if}> >
+                        <span class="day <{$item.display}>"><{$item.day}></span>
+                        <span class="week <{$item.display}>"><{$item.weekday}></span>
+                        <span class="time"><{$item.time}></span>
+                        <span class="txt"><{$item.AcceptStation}></span>
+                    </li>
+                  <{/foreach}>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- <header class="bar">
+    <span id="name" class="text-left"><{$comname}></span>
+    <span id="number"><{$message.nu}></span>
+</header>
+<{if $err_message eq ''}>
+    <div class="content">
+        <span class="line"></span>
+        <ul class="table-view">
+            <{foreach from=$message.data key=key item=delivery}>
+                <{if $key eq 0}>
+                    <li class="col first">
+                                <span class="col1">
+                                    <dl>
+                                        <dt><{$delivery.AcceptTime}></dt>
+                                    </dl>
+                                </span>
+                        <span class="col2"><span class="step"><span class="line2"></span><span class="point"></span></span></span>
+                        <div class="col3"><{$delivery.AcceptStation}></div>
+                    </li>
+                <{elseif $key eq $last}>
+                    <li class="col last">
+                        <div class="col1">
+                            <dl>
+                                <dt><{$delivery.AcceptTime}></dt>
+                            </dl>
+                        </div>
+                        <div class="col2">
+                                    <span class="step">
+                                        <span class="line1"></span>
+                                        <span class="point"></span>
+                                    </span>
+                        </div>
+                        <div class="col3"><{$delivery.AcceptStation}></div>
+                    </li>
+                <{else}>
+                    <li class="col">
+                        <div class="col1">
+                            <dl>
+                                <dt><{$delivery.AcceptTime}></dt>
+                            </dl>
+                        </div>
+                        <div class="col2">
+                                            <span class="step">
+                                                <span class="line1"></span>
+                                                <span class="line2"></span>
+                                                <span class="point"></span>
+                                            </span>
+                        </div>
+                        <div class="col3"><{$delivery.AcceptStation}></div>
+                    </li>
+                <{/if}>
+            <{/foreach}>
+        </ul>
+    </div>
+<{else}>
+    <div class="content" style="margin: 0 auto;text-align: center">
+        <span><{$err_message}></span>
+    </div>
+<{/if}> -->

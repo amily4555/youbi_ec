@@ -1,0 +1,85 @@
+<form action='index.php?ctl=system/appmgr&act=setting_save&p[0]=<{$app.prop.ident}>' target="{update:'messagebox'}" method='post' class="settingform" id="site_basic" enctype="multipart/form-data">
+    <div class="tableform">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+            <tr>
+                <td><h4><{t}><{$app.prop.name}><{/t}></h4></td>
+                <td style="text-align:right; padding-right:10px;">
+                    <{if $app.prop.s_help_link}>
+                    <a target="_blank" href="<{$app.prop.s_help_link}>">
+                        <img src="images/tips_help.gif">
+                    </a>
+                    <{else}>
+                    <{help docid="65" type="link"}><{t}>点击查看帮助<{/t}><{/help}>
+                    <{/if}>
+                </td>
+            </tr>
+        </table>
+        <div class="division">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="shopping_setting">
+                <{foreach from=$app.setting item="item" key="key"}>
+                <tr>
+                    <th><{t}><{$item.name}>：<{/t}></th>
+                    <td>
+                        <{setting key=$key namespace="setting" size=$item.size|default:8 display=$item.display}>
+                        <{help}><{t}><{$item.desc}><{/t}><{/help}>
+                        &nbsp;
+                        <!--<{if $apps.disabled eq 'false'}>-->
+                        <!--<a href="index.php?ctl=system/appmgr&act=disable&p[0]=<{$apps.plugin_ident}>&operation_type=stop&version=<{$apps.plugin_version}>"><font size="2" color="#a52a2a">关闭插件</font></a>-->
+                        <!--<{else}>-->
+                        <!--<a href="index.php?ctl=system/appmgr&act=install&p[0]=<{$apps.plugin_ident}>"><font size="2" color="#3cb371">开启插件</font></a>-->
+                        <!--<{/if}>-->
+                        <{if $apps.disabled eq 'false'}>
+                       <font size="2" color="#3cb371">插件已启用</font>
+                        <{else}>
+                       <font size="2" color="#a52a2a">插件未启用</font>
+                        <{/if}>
+                    </td>
+                </tr>
+                <{/foreach}>
+            </table>
+        </div>
+
+        <{if $app.prop.help_tip}>
+        <div class='notice'><{$app.prop.help_tip}></div>
+        <{/if}>
+
+        <{if $apps.disabled eq 'false'}>
+        <div class="table-action">
+            <{button type="submit" id="on_submit" label="保存"}>
+        </div>
+        <div class="table-action" style="display: none">
+            <{button href="index.php?ctl=system/appmgr&act=index"  label="启用插件"}>
+        </div>
+        <{else}>
+        <div class="table-action" style="display: none">
+            <{button type="submit" id="on_submit" label="保存"}>
+        </div>
+        <div class="table-action">
+            <{button href="index.php?ctl=system/appmgr&act=index"  label="启用插件"}>
+        </div>
+        <{/if}>
+</form>
+
+<script>
+    (function(){
+        var app_ident = '<{$app.prop.ident}>',app_version = '<{$app.prop.ver}>',opration_type = 'start';
+
+
+        $$("#site_basic a").each(function(item){
+            item.addEvent('click',function(){
+                new Request().post(
+                        "index.php?ctl=system/appmgr&act=appkey_count",
+                        {app_key:app_ident,type:'config_help',version:app_version}
+                );
+            });
+        });
+
+        $('on_submit').addEvent('click',function(){
+            new Request().post(
+                    "index.php?ctl=system/appmgr&act=appkey_count",
+                    {app_key:app_ident,type:'config_save',version:app_version}
+            );
+        });
+    })();
+</script>
+

@@ -1,0 +1,32 @@
+<{if count($queue)>0}>
+<div class="finder-list table-grid">
+<table width="100%" class="gridlist" cellpadding="0" cellspacing="0">
+<thead>
+  <tr>
+    <th><{t}>队列号<{/t}></th>
+    <th><{t}>单号<{/t}></th>
+   <th><{t}>操作<{/t}></th>
+   <th><{t}>msg_id<{/t}></th>
+    <th><{t}>发送次数<{/t}></th>
+   <th><{t}>信息<{/t}></th>
+    <th><{t}>状态<{/t}></th>
+  </tr>
+</thead>
+<tbody>
+  <{foreach from=$queue item=aList}>
+  <tr>
+    <td><{$aList.queue_id}></td>
+   <td><{$aList.mess_queue_id}></td>
+   <th><{if $aList.status neq '成功'}><a href="index.php?ctl=plugins/connect_ome&act=run_queue&p[0]=<{$aList.mess_queue_id}>"><{t}>重试<{/t}></a><{/if}></th>
+   <td><{$aList.msg_id}></td>
+    <td><{$aList.send_num}></td>
+   <td><{$aList.message}></td>
+    <td><{$aList.status}></td>
+  </tr>
+  <{/foreach}></tbody>
+</table>
+<{pager data=$pageData}>
+</div>
+<{else}>
+<div class="notice"><{t}>队列为空,没有积压的未发送订单或支付单<{/t}></div>.
+<{/if}>

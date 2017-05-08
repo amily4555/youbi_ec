@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title><{t}>ShopEx网上商店系统<{/t}></title>
+<link rel="shortcut icon" href="../favicon.gif" type="image/gif" />
+<link href="images/png.css" rel="stylesheet" type="text/css"  />
+<link href="images/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="yq_login-bg">
+    <div class="shopex-logo">
+        <img src="images/shopex-logo.png" alt="shopex485" class="shopex-logo" />
+    </div>
+    <div class="content">
+      <div class="online-shop yq-logo">
+        <img src="images/yq_logo.png" alt="shopex网上商店系统" />
+        <p>帮助中小企业快速开启电子商务</p>
+      </div>
+
+      <{if $message}>
+        <div class="message">
+          <{$message}>&nbsp;
+        </div>
+      <{/if}>
+      <div class="body cloud-body">
+        <div class="form">
+          <form name="form1" action="index.php?ctl=passport&act=doLoginOauth" method="post" class="formstyle">
+            <{if $return}>
+            <input type="hidden" name="return" value="<{$return}>" />
+            <{/if}>
+            <div class="import">
+              <div class="import-msg">
+                <div class="ipt">
+                  <img class="ipt-name" src="images/name.png" alt="name" />
+                  <input id="usrname" type="text" name="usrname" class="inputstyle" maxlength="50" autocomplete="off" 
+                      value="<{$username|default:'请输入用户名'}>"  
+                          onfocus="if(this.value=='请输入用户名') this.value='';this.className='inputstylefocus';return true;"
+                          onblur="if(this.value=='') this.value='请输入用户名';this.className='inputstyle';return true;">
+                </div>  
+                <div class="ipt">
+                  <img class="ipt-name" src="images/passw.png" alt="passw"/>
+                  <input id="password" type="password" name="passwd" class="inputstyle" maxlength="20" 
+                  value="+_-_-_+"  
+                          onfocus="if(this.value=='+_-_-_+') this.value='';this.className='inputstylefocus';return true;"
+                          onblur="if(this.value=='') this.value='+_-_-_+';this.className='inputstyle';return true;">
+                </div>
+                <div class="ipt" style="position:relative">
+                <{if $show_varycode}>
+                  <img class="ipt-name" src="images/verifycode.png" alt="verifycode"/>
+                  <input type="text" class="inputstyle" autocomplete="off" size=8 name="verifycode" id="verifycode" value="请输入验证码" 
+                          onfocus="if(this.value=='请输入验证码') this.value=''; this.className='inputstylefocus';return true;"
+                          onblur="if(this.value=='') this.value='请输入验证码'; this.className='inputstyle';return true;">
+                  <div class="verifycode-img"> 
+                    <img src="index.php?ctl=passport&act=verifycode&<{$smarty.now}>" align="top">
+                  </div>
+                <{/if }>
+                </div>
+              </div>
+              <div>
+                <button type="submit" class="loginbtn cloud-loginbtn" onmousedown="this.className='cloud-loginbtnfocus';return true;">登录</button> 
+              </div>
+              <div class="cloud-passw">
+                <a target="_blank" href="#" style="float:left;">忘记密码？</a>
+                <a target="_blank" href="#" style="float:right;">返回本地登录>></a>
+              </div>         
+            </div>
+          </form>
+        </div>
+        <div class="no-account">
+          <p>没有账号吗？</p>
+          <a class="register" href="#">免费注册</a>
+        </div>
+      </div>
+      <div class="foot"></div>
+    </div>
+    <p class="copyright">&copy;&nbsp;&nbsp;2013-2016&nbsp;ShopEx,Inc.All&nbsp;rights&nbsp;reserverd.</p>   
+  </div>
+</body>
+</html>
